@@ -21,6 +21,9 @@
 #define AM2D_ENGINE_H
 
 #include <am2d/context.h>
+#include <am2d/input.h>
+#include <am2d/physics.h>
+#include <am2d/renderer.h>
 
 am2d_context *am2d_new(const char *, int, int);
 void am2d_delete(am2d_context *);

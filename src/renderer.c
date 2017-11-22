@@ -17,18 +17,10 @@
  * along with 2 Axis Mundi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AM2D_CONTEXT_H
-#define AM2D_CONTEXT_H
-
+#include <am2d/renderer.h>
 #include <SDL2/SDL.h>
-#include <stdbool.h>
 
-typedef struct {
-    bool running;
-    const char *title;
-    int width, height;
-    SDL_Window *window;
-    SDL_Renderer *renderer;
-} am2d_context;
-
-#endif
+void am2d_render(am2d_context *context) {
+    SDL_RenderClear(context->renderer);
+    SDL_RenderPresent(context->renderer);
+}

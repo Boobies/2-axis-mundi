@@ -19,6 +19,7 @@
 
 #include <am2d/engine.h>
 #include <SDL2/SDL.h>
+#include <stdbool.h>
 #include <stdlib.h>
 
 am2d_context *am2d_new(const char *title, int width, int height) {
@@ -33,6 +34,8 @@ am2d_context *am2d_new(const char *title, int width, int height) {
 
     if ((context = malloc(sizeof *context)) == NULL)
         goto done;
+
+    context->running = false;
 
     if ((context->window = SDL_CreateWindow(context->title = title,
                                             SDL_WINDOWPOS_CENTERED,
@@ -56,4 +59,9 @@ void am2d_delete(am2d_context *context) {
 }
 
 void am2d_run(am2d_context *context) {
+    for (context->running = true; context->running; ) {
+        am2d_handleinput(context);
+        am2d_update(context);
+        am2d_render(context);
+    }
 }
