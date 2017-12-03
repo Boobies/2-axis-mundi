@@ -43,12 +43,11 @@ typedef struct {
     size_t animation_count;
     struct am2d_animation {
         enum am2d_animation_type type;
-        int frame_count, frame_number;
+        int frame_count;
     } animation[];
 } am2d_sprite;
 
 am2d_sprite *am2d_sprite_new(am2d_context *, const char *);
 void am2d_sprite_delete(am2d_sprite *);
-void am2d_sprite_draw(am2d_sprite *, size_t, int, int, float, enum am2d_flip);
 
 #endif

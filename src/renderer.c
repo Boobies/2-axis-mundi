@@ -17,10 +17,13 @@
  * along with 2 Axis Mundi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <am2d/actors.h>
 #include <am2d/renderer.h>
 #include <SDL2/SDL.h>
 
 void am2d_render(am2d_context *context) {
     SDL_RenderClear(context->renderer);
+    for (struct am2d_actor_queue *p = am2d_actor_queue; p != NULL; p = p->next)
+        am2d_actor_draw(p->actor);
     SDL_RenderPresent(context->renderer);
 }

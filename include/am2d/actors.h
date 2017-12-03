@@ -17,18 +17,34 @@
  * along with 2 Axis Mundi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AM2D_ENGINE_H
-#define AM2D_ENGINE_H
+#ifndef AM2D_ACTORS_H
+#define AM2D_ACTORS_H
 
-#include <am2d/actors.h>
-#include <am2d/context.h>
-#include <am2d/input.h>
-#include <am2d/physics.h>
-#include <am2d/renderer.h>
 #include <am2d/sprites.h>
+#include <stddef.h>
 
-am2d_context *am2d_new(const char *, int, int);
-void am2d_delete(am2d_context *);
-void am2d_run(am2d_context *);
+typedef struct {
+    am2d_sprite *sprite;
+    int x, y;
+    float alpha;
+    enum am2d_flip flip;
+    size_t animation_number;
+    int frame_number;
+} am2d_actor;
+
+extern struct am2d_actor_queue {
+    am2d_actor *actor;
+    struct am2d_actor_queue *next;
+} *am2d_actor_queue;
+
+am2d_actor *am2d_actor_new(am2d_sprite *);
+void am2d_actor_delete(am2d_actor *);
+void am2d_actor_setlocation(am2d_actor *, int, int);
+void am2d_actor_setangle(am2d_actor *, float);
+void am2d_actor_setflip(am2d_actor *, enum am2d_flip);
+void am2d_actor_setanimation(am2d_actor *, size_t, int);
+void am2d_actor_draw(am2d_actor *);
+void am2d_actor_show(am2d_actor *);
+void am2d_actor_hide(am2d_actor *);
 
 #endif

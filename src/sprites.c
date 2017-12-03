@@ -21,7 +21,6 @@
 #include <assert.h>
 #include <json.h>
 #include <SDL2/SDL_image.h>
-#include <stdio.h>
 
 am2d_sprite *am2d_sprite_new(am2d_context *context, const char *jsonfile) {
     am2d_sprite *sprite;
@@ -63,7 +62,6 @@ am2d_sprite *am2d_sprite_new(am2d_context *context, const char *jsonfile) {
             sprite->animation[i].type = AM2D_ANIM_LOOP;
 
         sprite->animation[i].frame_count = json_number_get(json_object_get(json_array_get(json_object_get(desc, "animations"), i), "frames"));
-        sprite->animation[i].frame_number = 0;
     }
 
     free(desc);
@@ -74,27 +72,4 @@ am2d_sprite *am2d_sprite_new(am2d_context *context, const char *jsonfile) {
 void am2d_sprite_delete(am2d_sprite *sprite) {
     SDL_DestroyTexture(sprite->texture);
     free(sprite);
-}
-
-void am2d_sprite_draw(am2d_sprite *sprite, size_t animation_number, int x, int y, float alpha, enum am2d_flip flip) {
-    assert(animation_number < sprite->animation_count);
-
-    SDL_Rect src = { sprite->animation[animation_number].frame_number * sprite->frame_width, animation_number * sprite->frame_height,
-                     sprite->frame_width, sprite->frame_height }, dst = { x, y, sprite->frame_width, sprite->frame_height };
-
-    SDL_RenderCopyEx(sprite->renderer, sprite->texture, &src, &dst, alpha, NULL, flip);
-
-    switch (sprite->animation[animation_number].type) {
-    case AM2D_ANIM_STATIC:
-        break;
-    case AM2D_ANIM_ONCE:
-        if (sprite->animation[animation_number].frame_number < sprite->animation[animation_number].frame_count - 1)
-            ++sprite->animation[animation_number].frame_number;
-        break;
-    case AM2D_ANIM_LOOP:
-        sprite->animation[animation_number].frame_number = (sprite->animation[animation_number].frame_number + 1) %
-                                                           sprite->animation[animation_number].frame_count;
-
-        break;
-    }
 }

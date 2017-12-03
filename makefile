@@ -17,7 +17,7 @@
 # along with 2 Axis Mundi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-AM_SRC_FILES = engine.c input.c physics.c renderer.c sprites.c
+AM_SRC_FILES = actors.c engine.c input.c physics.c renderer.c sprites.c
 AM_OBJ_FILES = $(AM_SRC_FILES:.c=.o)
 AM_LIB_FILE = libam2d_engine.a
 
