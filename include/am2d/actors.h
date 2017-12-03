@@ -25,8 +25,9 @@
 
 typedef struct {
     am2d_sprite *sprite;
-    int x, y;
-    float alpha;
+    float x, y, alpha;
+    float vel_x, vel_y, vel_alpha;
+    float acc_x, acc_y, acc_alpha;
     enum am2d_flip flip;
     size_t animation_number;
     int frame_number;
@@ -39,8 +40,10 @@ extern struct am2d_actor_queue {
 
 am2d_actor *am2d_actor_new(am2d_sprite *);
 void am2d_actor_delete(am2d_actor *);
-void am2d_actor_setlocation(am2d_actor *, int, int);
+void am2d_actor_setlocation(am2d_actor *, float, float);
 void am2d_actor_setangle(am2d_actor *, float);
+void am2d_actor_setvelocity(am2d_actor *, float, float, float);
+void am2d_actor_setacceleration(am2d_actor *, float, float, float);
 void am2d_actor_setflip(am2d_actor *, enum am2d_flip);
 void am2d_actor_setanimation(am2d_actor *, size_t, int);
 void am2d_actor_draw(am2d_actor *);

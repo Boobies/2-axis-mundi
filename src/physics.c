@@ -17,7 +17,13 @@
  * along with 2 Axis Mundi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <am2d/actors.h>
 #include <am2d/physics.h>
 
 void am2d_update(am2d_context *context) {
+    for (struct am2d_actor_queue *p = am2d_actor_queue; p != NULL; p = p->next) {
+        p->actor->x += p->actor->vel_x += p->actor->acc_x;
+        p->actor->y += p->actor->vel_y += p->actor->acc_y;
+        p->actor->alpha += p->actor->vel_alpha += p->actor->acc_alpha;
+    }
 }

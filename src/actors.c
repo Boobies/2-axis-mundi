@@ -32,6 +32,8 @@ am2d_actor *am2d_actor_new(am2d_sprite *sprite) {
     actor->sprite = sprite;
     am2d_actor_setlocation(actor, 0, 0);
     am2d_actor_setangle(actor, 0);
+    am2d_actor_setvelocity(actor, 0, 0, 0);
+    am2d_actor_setacceleration(actor, 0, 0, 0);
     am2d_actor_setflip(actor, AM2D_NOFLIP);
     am2d_actor_setanimation(actor, 0, 0);
 
@@ -44,7 +46,7 @@ void am2d_actor_delete(am2d_actor *actor) {
     free(actor);
 }
 
-void am2d_actor_setlocation(am2d_actor *actor, int x, int y) {
+void am2d_actor_setlocation(am2d_actor *actor, float x, float y) {
     assert(actor != NULL);
 
     actor->x = x;
@@ -55,6 +57,22 @@ void am2d_actor_setangle(am2d_actor *actor, float alpha) {
     assert(actor != NULL);
 
     actor->alpha = alpha;
+}
+
+void am2d_actor_setvelocity(am2d_actor *actor, float vel_x, float vel_y, float vel_alpha) {
+    assert(actor != NULL);
+
+    actor->vel_x = vel_x;
+    actor->vel_y = vel_y;
+    actor->vel_alpha = vel_alpha;
+}
+
+void am2d_actor_setacceleration(am2d_actor *actor, float acc_x, float acc_y, float acc_alpha) {
+    assert(actor != NULL);
+
+    actor->acc_x = acc_x;
+    actor->acc_y = acc_y;
+    actor->acc_alpha = acc_alpha;
 }
 
 void am2d_actor_setflip(am2d_actor *actor, enum am2d_flip flip) {
