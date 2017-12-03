@@ -17,17 +17,38 @@
  * along with 2 Axis Mundi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AM2D_ENGINE_H
-#define AM2D_ENGINE_H
+#ifndef AM2D_SPRITES_H
+#define AM2D_SPRITES_H
 
 #include <am2d/context.h>
-#include <am2d/input.h>
-#include <am2d/physics.h>
-#include <am2d/renderer.h>
-#include <am2d/sprites.h>
+#include <SDL2/SDL.h>
+#include <stddef.h>
 
-am2d_context *am2d_new(const char *, int, int);
-void am2d_delete(am2d_context *);
-void am2d_run(am2d_context *);
+enum am2d_animation_type {
+    AM2D_ANIM_STATIC,
+    AM2D_ANIM_ONCE,
+    AM2D_ANIM_LOOP
+};
+
+enum am2d_flip {
+    AM2D_NOFLIP = SDL_FLIP_NONE,
+    AM2D_HFLIP = SDL_FLIP_HORIZONTAL,
+    AM2D_VFLIP = SDL_FLIP_VERTICAL
+};
+
+typedef struct {
+    SDL_Renderer *renderer;
+    SDL_Texture *texture;
+    int frame_width, frame_height;
+    size_t animation_count;
+    struct am2d_animation {
+        enum am2d_animation_type type;
+        int frame_count, frame_number;
+    } animation[];
+} am2d_sprite;
+
+am2d_sprite *am2d_sprite_new(am2d_context *, const char *);
+void am2d_sprite_delete(am2d_sprite *);
+void am2d_sprite_draw(am2d_sprite *, size_t, int, int, float, enum am2d_flip);
 
 #endif

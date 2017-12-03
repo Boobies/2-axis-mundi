@@ -14,7 +14,9 @@ Source Code, Building, and Linking
 
 Below are the prerequisites for this engine:
 
+* [JSONlib](https://github.com/Boobies/jsonlib)
 * [SDL 2.0](http://libsdl.org/index.php)
+* [SDL_image 2.0](https://www.libsdl.org/projects/SDL_image/)
 
 The following command will clone the *2 Axis Mundi* repository:
 
@@ -26,7 +28,7 @@ In order to build and install the library, use the following command:
 
 Finally, here is an example of how to link against it:
 
-    c99 foo.c -l am2d_engine -l SDL2
+    c99 foo.c -l am2d_engine -l SDL2 -l SDL2_image -l json
 
 License
 -------
