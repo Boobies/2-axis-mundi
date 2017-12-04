@@ -20,7 +20,7 @@
 #include <am2d/input.h>
 #include <SDL2/SDL.h>
 
-static void (*keyhandler[4])(void) = { NULL };
+static void (*keyhandler[8])(void) = { NULL };
 
 static inline void handle(enum am2d_key key) {
     if (keyhandler[key] != NULL)
@@ -38,16 +38,32 @@ void am2d_handleinput(am2d_context *context) {
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
             case SDLK_UP:
-                handle(AM2D_KEY_UP);
+                handle(AM2D_KEY_PRESS_UP);
                 break;
             case SDLK_DOWN:
-                handle(AM2D_KEY_DOWN);
+                handle(AM2D_KEY_PRESS_DOWN);
                 break;
             case SDLK_LEFT:
-                handle(AM2D_KEY_LEFT);
+                handle(AM2D_KEY_PRESS_LEFT);
                 break;
             case SDLK_RIGHT:
-                handle(AM2D_KEY_RIGHT);
+                handle(AM2D_KEY_PRESS_RIGHT);
+                break;
+            }
+            break;
+        case SDL_KEYUP:
+            switch (event.key.keysym.sym) {
+            case SDLK_UP:
+                handle(AM2D_KEY_RELEASE_UP);
+                break;
+            case SDLK_DOWN:
+                handle(AM2D_KEY_RELEASE_DOWN);
+                break;
+            case SDLK_LEFT:
+                handle(AM2D_KEY_RELEASE_LEFT);
+                break;
+            case SDLK_RIGHT:
+                handle(AM2D_KEY_RELEASE_RIGHT);
                 break;
             }
             break;

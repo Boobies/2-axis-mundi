@@ -22,12 +22,18 @@
 
 #include <am2d/context.h>
 
+#define KEY(x)              \
+    AM2D_KEY_PRESS_ ## x,   \
+    AM2D_KEY_RELEASE_ ## x
+
 enum am2d_key {
-    AM2D_KEY_UP,
-    AM2D_KEY_DOWN,
-    AM2D_KEY_LEFT,
-    AM2D_KEY_RIGHT
+    KEY(UP),
+    KEY(DOWN),
+    KEY(LEFT),
+    KEY(RIGHT)
 };
+
+#undef KEY
 
 void am2d_handleinput(am2d_context *);
 void am2d_key_bind(enum am2d_key, void (*)(void));

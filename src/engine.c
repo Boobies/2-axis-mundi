@@ -22,6 +22,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#define MS_PER_FRAME 30
+
 am2d_context *am2d_new(const char *title, int width, int height) {
     am2d_context *context = NULL;
     Uint32 init = SDL_INIT_VIDEO;
@@ -59,9 +61,13 @@ void am2d_delete(am2d_context *context) {
 }
 
 void am2d_run(am2d_context *context) {
+    unsigned int time;
+
     for (context->running = true; context->running; ) {
+        time = SDL_GetTicks();
         am2d_handleinput(context);
         am2d_update(context);
         am2d_render(context);
+        SDL_Delay(time + MS_PER_FRAME - SDL_GetTicks());
     }
 }
